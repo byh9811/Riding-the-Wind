@@ -315,7 +315,6 @@ DEFAULT CHARACTER SET = utf8mb3;
 CREATE TABLE IF NOT EXISTS `riding_the_wind`.`personal_trip` (
   `content_id` INT NOT NULL,
   `user_id` VARCHAR(20) NOT NULL,
-  `select` INT NOT NULL DEFAULT '0',
   PRIMARY KEY (`content_id`, `user_id`),
   INDEX `fk_user_user_id_idx` (`user_id` ASC) VISIBLE,
   INDEX `fk_personal_trip_attraction_info1_idx` (`content_id` ASC) VISIBLE,
