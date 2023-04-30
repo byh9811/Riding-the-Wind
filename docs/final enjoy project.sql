@@ -8,27 +8,27 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema Enjoy_trip
+-- Schema riding_the_wind
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema Enjoy_trip
+-- Schema riding_the_wind
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `Enjoy_trip` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `riding_the_wind` DEFAULT CHARACTER SET utf8 ;
 -- -----------------------------------------------------
--- Schema enjoy_trip
+-- Schema riding_the_wind
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema enjoy_trip
+-- Schema riding_the_wind
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `enjoy_trip` DEFAULT CHARACTER SET utf8mb3 ;
-USE `Enjoy_trip` ;
+CREATE SCHEMA IF NOT EXISTS `riding_the_wind` DEFAULT CHARACTER SET utf8mb3 ;
+USE `riding_the_wind` ;
 
 -- -----------------------------------------------------
--- Table `Enjoy_trip`.`users`
+-- Table `riding_the_wind`.`user`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Enjoy_trip`.`users` (
+CREATE TABLE IF NOT EXISTS `riding_the_wind`.`user` (
   `user_id` VARCHAR(20) NOT NULL,
   `user_name` VARCHAR(45) NOT NULL,
   `user_password` VARCHAR(100) NOT NULL,
@@ -50,9 +50,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Enjoy_trip`.`notice_article`
+-- Table `riding_the_wind`.`notice_article`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Enjoy_trip`.`notice_article` (
+CREATE TABLE IF NOT EXISTS `riding_the_wind`.`notice_article` (
   `article_no` INT NOT NULL AUTO_INCREMENT,
   `user_id` VARCHAR(20) NOT NULL,
   `title` VARCHAR(45) NOT NULL,
@@ -61,19 +61,19 @@ CREATE TABLE IF NOT EXISTS `Enjoy_trip`.`notice_article` (
   `modify_time` TIMESTAMP NOT NULL DEFAULT now(),
   PRIMARY KEY (`article_no`),
   UNIQUE INDEX `article_no_UNIQUE` (`article_no` ASC) VISIBLE,
-  INDEX `users_user_id_fk_idx` (`user_id` ASC) VISIBLE,
-  CONSTRAINT `users_user_id_fk`
+  INDEX `user_user_id_fk_idx` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `user_user_id_fk`
     FOREIGN KEY (`user_id`)
-    REFERENCES `Enjoy_trip`.`users` (`user_id`)
+    REFERENCES `riding_the_wind`.`user` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Enjoy_trip`.`place_article`
+-- Table `riding_the_wind`.`place_article`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Enjoy_trip`.`place_article` (
+CREATE TABLE IF NOT EXISTS `riding_the_wind`.`place_article` (
   `article_no` INT NOT NULL,
   `user_id` VARCHAR(20) NOT NULL,
   `title` VARCHAR(45) NOT NULL,
@@ -88,9 +88,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Enjoy_trip`.`comment`
+-- Table `riding_the_wind`.`comment`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Enjoy_trip`.`comment` (
+CREATE TABLE IF NOT EXISTS `riding_the_wind`.`comment` (
   `comment_no` INT NOT NULL AUTO_INCREMENT,
   `article_no` INT NOT NULL,
   `user_id` VARCHAR(20) NOT NULL,
@@ -102,34 +102,34 @@ CREATE TABLE IF NOT EXISTS `Enjoy_trip`.`comment` (
   INDEX `fk_place_article_article_no_idx` (`article_no` ASC) VISIBLE,
   CONSTRAINT `fk_place_article_article_no`
     FOREIGN KEY (`article_no`)
-    REFERENCES `Enjoy_trip`.`place_article` (`article_no`)
+    REFERENCES `riding_the_wind`.`place_article` (`article_no`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Enjoy_trip`.`personal_trip`
+-- Table `riding_the_wind`.`personal_trip`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Enjoy_trip`.`personal_trip` (
+CREATE TABLE IF NOT EXISTS `riding_the_wind`.`personal_trip` (
   `content_id` INT NOT NULL,
   `user_id` VARCHAR(20) NOT NULL,
   `select` INT NOT NULL DEFAULT 0,
   PRIMARY KEY (`content_id`, `user_id`),
-  INDEX `fk_users_user_id_idx` (`user_id` ASC) VISIBLE,
-  CONSTRAINT `fk_users_user_id`
+  INDEX `fk_user_user_id_idx` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `fk_user_user_id`
     FOREIGN KEY (`user_id`)
-    REFERENCES `Enjoy_trip`.`users` (`user_id`)
+    REFERENCES `riding_the_wind`.`user` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-USE `enjoy_trip` ;
+USE `riding_the_wind` ;
 
 -- -----------------------------------------------------
--- Table `enjoy_trip`.`sido`
+-- Table `riding_the_wind`.`sido`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `enjoy_trip`.`sido` (
+CREATE TABLE IF NOT EXISTS `riding_the_wind`.`sido` (
   `sido_code` INT NOT NULL,
   `sido_name` VARCHAR(30) NULL DEFAULT NULL,
   PRIMARY KEY (`sido_code`))
@@ -138,9 +138,9 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `enjoy_trip`.`gugun`
+-- Table `riding_the_wind`.`gugun`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `enjoy_trip`.`gugun` (
+CREATE TABLE IF NOT EXISTS `riding_the_wind`.`gugun` (
   `gugun_code` INT NOT NULL,
   `gugun_name` VARCHAR(30) NULL DEFAULT NULL,
   `sido_code` INT NOT NULL,
@@ -148,15 +148,15 @@ CREATE TABLE IF NOT EXISTS `enjoy_trip`.`gugun` (
   INDEX `gugun_to_sido_sido_code_fk_idx` (`sido_code` ASC) VISIBLE,
   CONSTRAINT `gugun_to_sido_sido_code_fk`
     FOREIGN KEY (`sido_code`)
-    REFERENCES `enjoy_trip`.`sido` (`sido_code`))
+    REFERENCES `riding_the_wind`.`sido` (`sido_code`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `enjoy_trip`.`attraction_info`
+-- Table `riding_the_wind`.`attraction_info`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `enjoy_trip`.`attraction_info` (
+CREATE TABLE IF NOT EXISTS `riding_the_wind`.`attraction_info` (
   `content_id` INT NOT NULL,
   `content_type_id` INT NULL DEFAULT NULL,
   `title` VARCHAR(100) NULL DEFAULT NULL,
@@ -178,21 +178,21 @@ CREATE TABLE IF NOT EXISTS `enjoy_trip`.`attraction_info` (
   INDEX `attraction_to_gugun_code_fk_idx` (`gugun_code` ASC) VISIBLE,
   CONSTRAINT `attraction_to_content_type_id_fk`
     FOREIGN KEY (`content_type_id`)
-    REFERENCES `enjoy_trip`.`content_type` (`content_type_id`),
+    REFERENCES `riding_the_wind`.`content_type` (`content_type_id`),
   CONSTRAINT `attraction_to_gugun_code_fk`
     FOREIGN KEY (`gugun_code`)
-    REFERENCES `enjoy_trip`.`gugun` (`gugun_code`),
+    REFERENCES `riding_the_wind`.`gugun` (`gugun_code`),
   CONSTRAINT `attraction_to_sido_code_fk`
     FOREIGN KEY (`sido_code`)
-    REFERENCES `enjoy_trip`.`sido` (`sido_code`))
+    REFERENCES `riding_the_wind`.`sido` (`sido_code`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `enjoy_trip`.`attraction_description`
+-- Table `riding_the_wind`.`attraction_description`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `enjoy_trip`.`attraction_description` (
+CREATE TABLE IF NOT EXISTS `riding_the_wind`.`attraction_description` (
   `content_id` INT NOT NULL,
   `homepage` VARCHAR(100) NULL DEFAULT NULL,
   `overview` VARCHAR(10000) NULL DEFAULT NULL,
@@ -200,15 +200,15 @@ CREATE TABLE IF NOT EXISTS `enjoy_trip`.`attraction_description` (
   PRIMARY KEY (`content_id`),
   CONSTRAINT `attraction_detail_to_attraciton_id_fk`
     FOREIGN KEY (`content_id`)
-    REFERENCES `enjoy_trip`.`attraction_info` (`content_id`))
+    REFERENCES `riding_the_wind`.`attraction_info` (`content_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `enjoy_trip`.`attraction_detail`
+-- Table `riding_the_wind`.`attraction_detail`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `enjoy_trip`.`attraction_detail` (
+CREATE TABLE IF NOT EXISTS `riding_the_wind`.`attraction_detail` (
   `content_id` INT NOT NULL,
   `cat1` VARCHAR(3) NULL DEFAULT NULL,
   `cat2` VARCHAR(5) NULL DEFAULT NULL,
@@ -219,15 +219,15 @@ CREATE TABLE IF NOT EXISTS `enjoy_trip`.`attraction_detail` (
   PRIMARY KEY (`content_id`),
   CONSTRAINT `attraction_detail_to_basic_content_id_fk`
     FOREIGN KEY (`content_id`)
-    REFERENCES `enjoy_trip`.`attraction_info` (`content_id`))
+    REFERENCES `riding_the_wind`.`attraction_info` (`content_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `enjoy_trip`.`place_article`
+-- Table `riding_the_wind`.`place_article`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `enjoy_trip`.`place_article` (
+CREATE TABLE IF NOT EXISTS `riding_the_wind`.`place_article` (
   `article_no` INT NOT NULL,
   `user_id` VARCHAR(20) NOT NULL,
   `title` VARCHAR(45) NOT NULL,
@@ -238,17 +238,17 @@ CREATE TABLE IF NOT EXISTS `enjoy_trip`.`place_article` (
   `modify_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`article_no`),
   UNIQUE INDEX `article_no_UNIQUE` (`article_no` ASC) VISIBLE,
-  constraint `place_article_to_users_user_id_fk`
+  constraint `place_article_to_user_user_id_fk`
 	foreign key (`user_id`)
-    references `enjoy_trip`.`users` (`user_id`))
+    references `riding_the_wind`.`user` (`user_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `enjoy_trip`.`comment`
+-- Table `riding_the_wind`.`comment`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `enjoy_trip`.`comment` (
+CREATE TABLE IF NOT EXISTS `riding_the_wind`.`comment` (
   `comment_no` INT NOT NULL AUTO_INCREMENT,
   `article_no` INT NOT NULL,
   `user_id` VARCHAR(20) NOT NULL,
@@ -260,15 +260,15 @@ CREATE TABLE IF NOT EXISTS `enjoy_trip`.`comment` (
   INDEX `fk_place_article_article_no_idx` (`article_no` ASC) VISIBLE,
   CONSTRAINT `fk_place_article_article_no`
     FOREIGN KEY (`article_no`)
-    REFERENCES `enjoy_trip`.`place_article` (`article_no`))
+    REFERENCES `riding_the_wind`.`place_article` (`article_no`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `enjoy_trip`.`users`
+-- Table `riding_the_wind`.`user`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `enjoy_trip`.`users` (
+CREATE TABLE IF NOT EXISTS `riding_the_wind`.`user` (
   `user_id` VARCHAR(20) NOT NULL,
   `user_name` VARCHAR(45) NOT NULL,
   `user_password` VARCHAR(100) NOT NULL,
@@ -290,9 +290,9 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `enjoy_trip`.`notice_article`
+-- Table `riding_the_wind`.`notice_article`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `enjoy_trip`.`notice_article` (
+CREATE TABLE IF NOT EXISTS `riding_the_wind`.`notice_article` (
   `article_no` INT NOT NULL AUTO_INCREMENT,
   `user_id` VARCHAR(20) NOT NULL,
   `title` VARCHAR(45) NOT NULL,
@@ -301,30 +301,30 @@ CREATE TABLE IF NOT EXISTS `enjoy_trip`.`notice_article` (
   `modify_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`article_no`),
   UNIQUE INDEX `article_no_UNIQUE` (`article_no` ASC) VISIBLE,
-  INDEX `users_user_id_fk_idx` (`user_id` ASC) VISIBLE,
-  CONSTRAINT `users_user_id_fk`
+  INDEX `user_user_id_fk_idx` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `user_user_id_fk`
     FOREIGN KEY (`user_id`)
-    REFERENCES `enjoy_trip`.`users` (`user_id`))
+    REFERENCES `riding_the_wind`.`user` (`user_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `enjoy_trip`.`personal_trip`
+-- Table `riding_the_wind`.`personal_trip`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `enjoy_trip`.`personal_trip` (
+CREATE TABLE IF NOT EXISTS `riding_the_wind`.`personal_trip` (
   `content_id` INT NOT NULL,
   `user_id` VARCHAR(20) NOT NULL,
   `select` INT NOT NULL DEFAULT '0',
   PRIMARY KEY (`content_id`, `user_id`),
-  INDEX `fk_users_user_id_idx` (`user_id` ASC) VISIBLE,
+  INDEX `fk_user_user_id_idx` (`user_id` ASC) VISIBLE,
   INDEX `fk_personal_trip_attraction_info1_idx` (`content_id` ASC) VISIBLE,
-  CONSTRAINT `fk_users_user_id`
+  CONSTRAINT `fk_user_user_id`
     FOREIGN KEY (`user_id`)
-    REFERENCES `enjoy_trip`.`users` (`user_id`),
+    REFERENCES `riding_the_wind`.`user` (`user_id`),
   CONSTRAINT `fk_personal_trip_attraction_info1`
     FOREIGN KEY (`content_id`)
-    REFERENCES `enjoy_trip`.`attraction_info` (`content_id`)
+    REFERENCES `riding_the_wind`.`attraction_info` (`content_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
