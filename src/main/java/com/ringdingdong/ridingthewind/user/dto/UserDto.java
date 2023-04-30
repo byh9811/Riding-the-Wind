@@ -1,12 +1,14 @@
 package com.ringdingdong.ridingthewind.user.dto;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@ToString
-@Setter
 @Getter
+@Setter
+@ToString
+@NoArgsConstructor
 public class UserDto {
 
     private String userId;

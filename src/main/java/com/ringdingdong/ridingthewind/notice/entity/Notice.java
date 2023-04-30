@@ -1,5 +1,12 @@
 package com.ringdingdong.ridingthewind.notice.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.ToString;
+
+@Getter
+@ToString
+@AllArgsConstructor
 public class Notice {
 
     private int articleNo;
