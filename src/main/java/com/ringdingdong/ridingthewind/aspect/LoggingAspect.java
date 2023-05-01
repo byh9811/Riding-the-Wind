@@ -23,20 +23,20 @@ public class LoggingAspect {
 
 	@Around(value = "execution(* com.ringdingdong.ridingthewind..*(..))")
 	public Object loggingExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
-		log.debug("Call Method : {}, Received Parameter : {}", joinPoint.getSignature().toShortString(), Arrays.toString(joinPoint.getArgs()));
+		log.debug("Entered Method ({}) With Parameter ({})", joinPoint.getSignature().toShortString(), Arrays.toString(joinPoint.getArgs()));
 
 		StopWatch stopWatch = new StopWatch();
 		stopWatch.start();
 		Object proceed = joinPoint.proceed();
 		stopWatch.stop();
 
-		log.debug("Call Method : {}, ExecutionTime : {} ms", joinPoint.getSignature().toShortString(), stopWatch.getTotalTimeMillis());
+		log.debug("Executed Method ({}) in ({}) ms", joinPoint.getSignature().toShortString(), stopWatch.getTotalTimeMillis());
 		return proceed;
 	}
 
 	@AfterThrowing(value = "execution(* com.ringdingdong.ridingthewind..*(..)))", throwing = "exception")
 	public void afterThrowingMethod(JoinPoint joinPoint, Exception exception) {
-		log.error("Call Method : {}, Exception : {}", joinPoint.getSignature().toShortString(), exception);
+		log.error("Exception ({}) Threw At ({}) Method", exception, joinPoint.getSignature().toShortString());
 	}
 
 }
