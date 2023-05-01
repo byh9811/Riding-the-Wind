@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.ssafy.user.model.PersonalTripDto"%>
+    pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
+
+    <%-- 이건 주석입니다. 나중에 쓸때 2번라인 utf8뒤에 붙이면돼요 --%>
+    <%-- import="com.ssafy.user.model.PersonalTripDto" --%>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -38,7 +42,7 @@
             <img src="img/noimg.jpg" class="img-thumbnail" alt="프로필"/>
           </div>
           <div class="list-group">
-            <a href="user?action=mvupdate&userid=${loginUser}" class="list-group-item list-group-item-action">개인정보 수정</a>
+            <a href="/user/info" class="list-group-item list-group-item-action">개인정보</a>
             <a href="user?action=userDrop&userid=${loginUser}" class="list-group-item list-group-item-action">회원 탈퇴</a>
             <a href="#" class="list-group-item list-group-item-action">핫플게시판</a>
           </div>

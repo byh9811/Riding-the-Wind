@@ -21,4 +21,13 @@ public class UserServiceImpl implements UserService{
     public int signupUser(UserDto userDto) {
         return userMapper.signupUser(userDto);
     }
+
+    public User searchUser(String userId) {
+        return userMapper.searchUser(userId);
+
+    }
+
+    public int updateUser(UserDto userDto) {
+        return userMapper.updateUser(userDto);
+    }
 }

@@ -1,9 +1,11 @@
 package com.ringdingdong.ridingthewind.user.controller;
 
 import com.ringdingdong.ridingthewind.user.dto.UserDto;
+import com.ringdingdong.ridingthewind.user.dto.UserSessionDto;
 import com.ringdingdong.ridingthewind.user.entity.User;
 import com.ringdingdong.ridingthewind.user.service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,28 +17,30 @@ import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 @RequestMapping("/user")
 public class UserController {
     public final UserServiceImpl userService;
 
-    @GetMapping(value="signin")
+    @GetMapping(value="/signin")
     public String signin(){
         System.out.println("페이지 접속");
         return "user/signin";
     }
 
-    @PostMapping(value="signin")
+    @PostMapping(value="/signin")
     public String signin(@RequestParam Map<String, String> map, HttpSession session, Model model){
         UserDto temp = new UserDto();
         temp.setUserId(map.get("userid"));
         temp.setUserPassword(map.get("userpwd"));
 
         try {
-            User userDto = userService.signinUser(temp);
-            if(userDto != null){
-                session.setAttribute("loginUser", userDto);
+            User user = userService.signinUser(temp);
+            if(user != null){
+                UserSessionDto userSessionDto = new UserSessionDto(user);
+                session.setAttribute("loginUser", userSessionDto);
 
-                Cookie cookie = new Cookie("userId", userDto.getUserId());
+                Cookie cookie = new Cookie("userId", userSessionDto.getUserId());
                 cookie.setPath("/");
                 if("ok".equals(map.get("saveid"))){
                     cookie.setMaxAge(60*60);
@@ -57,20 +61,19 @@ public class UserController {
     }
 
 
-    @GetMapping(value="signout")
+    @GetMapping(value="/signout")
     public String signout(HttpSession session){
         session.invalidate();
         return "redirect:/";
     }
 
-    @GetMapping(value="signup")
+    @GetMapping(value="/signup")
     public String signup(){
         return "user/signup";
     }
 
-    @PostMapping(value="signup")
+    @PostMapping(value="/signup")
     public String signup(@ModelAttribute UserDto userDto, HttpSession session){
-        System.out.println(userDto.toString());
         int result = 1;
         try {
             result = userService.signupUser(userDto);
@@ -85,8 +88,46 @@ public class UserController {
         }
     }
 
-    @GetMapping(value = "mypage")
+    @GetMapping(value = "/mypage")
     public String mypage(){
-        return "redirect:/user/mypage";
+        return "/user/mypage";
+    }
+
+    @GetMapping(value="/viewinfo")
+    public String viewinfo(Model model, HttpSession session){
+
+        UserSessionDto userSessionDto = (UserSessionDto) session.getAttribute("loginUser");
+
+        User user = userService.searchUser(userSessionDto.getUserId());
+        model.addAttribute("userinfo", user);
+        return "user/viewinfo";
+    }
+
+    @GetMapping(value = "/info")
+    public String info(){
+        System.out.println("userinfo 들어왔어요");
+        return "redirect:/user/viewinfo";
+    }
+
+    @GetMapping(value = "/updateinfo")
+    public String updateinfo(Model model, HttpSession session){
+        UserSessionDto userSessionDto = (UserSessionDto) session.getAttribute("loginUser");
+
+        User user = userService.searchUser(userSessionDto.getUserId());
+        model.addAttribute("userinfo", user);
+        return "user/updateuserinfo";
+    }
+    @GetMapping(value="/update")
+    public String update(){
+        return "redirect:/user/updateinfo";
+    }
+
+    @PostMapping(value="/update")
+    public String update(@RequestParam Map<String, String> map,@ModelAttribute UserDto userDto){
+        System.out.println(userDto.toString());
+        int result = userService.updateUser(userDto);
+        System.out.println("업데이트 들어온건가");
+        System.out.println(map.get("userid"));
+        return "redirect:/user/info";
     }
 }
