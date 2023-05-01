@@ -30,8 +30,6 @@ public class UserController {
         UserDto temp = new UserDto();
         temp.setUserId(map.get("userid"));
         temp.setUserPassword(map.get("userpwd"));
-        System.out.println(model.toString());
-        System.out.println(map.get("saveid"));
 
         try {
             User userDto = userService.signinUser(temp);
@@ -40,7 +38,6 @@ public class UserController {
 
                 Cookie cookie = new Cookie("userId", userDto.getUserId());
                 cookie.setPath("/");
-                System.out.println();
                 if("ok".equals(map.get("saveid"))){
                     cookie.setMaxAge(60*60);
                 }else{
@@ -64,5 +61,32 @@ public class UserController {
     public String signout(HttpSession session){
         session.invalidate();
         return "redirect:/";
+    }
+
+    @GetMapping(value="signup")
+    public String signup(){
+        return "user/signup";
+    }
+
+    @PostMapping(value="signup")
+    public String signup(@ModelAttribute UserDto userDto, HttpSession session){
+        System.out.println(userDto.toString());
+        int result = 1;
+        try {
+            result = userService.signupUser(userDto);
+        } catch (Exception e){
+            return "redirect:/user/signup";
+        }
+        if(result==1) {
+            session.setAttribute("loginUser", userDto);
+            return "redirect:/";
+        } else{
+            return "redirect:/user/signup";
+        }
+    }
+
+    @GetMapping(value = "mypage")
+    public String mypage(){
+        return "redirect:/user/mypage";
     }
 }

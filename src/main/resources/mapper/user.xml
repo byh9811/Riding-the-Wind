@@ -25,6 +25,9 @@
         where user_id=#{userId} and user_password=#{userPassword}
     </select>
 
+    <insert id="signupUser" parameterType="userDto">
+        insert into user values(#{userId},#{userName},#{userPassword},#{emailId},#{emailDomain},date(now()),#{nickname},date(now()),#{phone},0);
+    </insert>
 
 
 </mapper>
