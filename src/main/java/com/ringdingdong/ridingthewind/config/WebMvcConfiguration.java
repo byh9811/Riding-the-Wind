@@ -1,9 +1,8 @@
 package com.ringdingdong.ridingthewind.config;
 
-import com.ringdingdong.ridingthewind.user.interceptor.SessionInterceptor;
+import com.ringdingdong.ridingthewind.interceptor.SessionInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 

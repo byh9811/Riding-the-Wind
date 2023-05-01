@@ -1,4 +1,4 @@
-package com.ringdingdong.ridingthewind.user.interceptor;
+package com.ringdingdong.ridingthewind.interceptor;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
