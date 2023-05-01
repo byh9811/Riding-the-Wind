@@ -130,4 +130,16 @@ public class UserController {
         System.out.println(map.get("userid"));
         return "redirect:/user/info";
     }
+
+    @GetMapping(value = "/delete")
+    public String delete(HttpSession session){
+        UserSessionDto userSessionDto = (UserSessionDto) session.getAttribute("loginUser");
+        System.out.println(userSessionDto.toString());
+        int result = userService.deleteUser(userSessionDto.getUserId());
+        if(result == 1){
+            session.invalidate();
+
+        }
+        return "redirect:/";
+    }
 }

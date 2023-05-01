@@ -40,4 +40,10 @@
         set user_name=#{userName}, user_password=#{userPassword}, nickname=#{nickname}, phone=#{phone}
         where user_id=#{userId}
     </update>
+
+    <delete id="deleteUser" parameterType="string">
+        delete
+        from user
+        where user_id=#{userId}
+    </delete>
 </mapper>

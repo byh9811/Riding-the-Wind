@@ -11,4 +11,6 @@ public interface UserMapper {
     User searchUser(String userId);
 
     int updateUser(UserDto userDto);
+
+    int deleteUser(String userId);
 }
