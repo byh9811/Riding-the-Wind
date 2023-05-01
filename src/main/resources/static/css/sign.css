@@ -1,0 +1,8 @@
+header ul li a{
+    text-decoration: none !important; 
+    color: black !important;
+}
+
+input {
+    height: 3.75rem;
+}

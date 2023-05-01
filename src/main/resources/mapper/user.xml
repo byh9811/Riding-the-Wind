@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.ringdingdong.ridingthewind.user.mapper.UserMapper">
+
+    <resultMap id="user" type="user">
+        <result column="user_id" property="userId"/>
+        <result column="user_name" property="userName"/>
+        <result column="user_password" property="userPassword"/>
+        <result column="email_id" property="emailId"/>
+        <result column="email_domain" property="emailDomain"/>
+        <result column="birth" property="birth"/>
+        <result column="nickname" property="nickname"/>
+        <result column="joindate" property="joindate"/>
+        <result column="phone" property="phone"/>
+        <result column="deleted" property="deleted"/>
+    </resultMap>
+
+
+    <select id="signinUser" parameterType="userDto" resultMap="user">
+        select *
+        from user
+        where user_id=#{userId} and user_password=#{userPassword}
+    </select>
+
+
+
+</mapper>
