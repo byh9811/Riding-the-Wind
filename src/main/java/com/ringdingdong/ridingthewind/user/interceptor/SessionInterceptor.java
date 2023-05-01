@@ -16,7 +16,7 @@ public class SessionInterceptor implements HandlerInterceptor {
 		if(session.getAttribute("loginUser")!=null) {		// 세션에 로그인 정보가 있다면 그대로 진행한다.
 			return true;
 		} else {		// 세션에 로그인 정보가 없다면 redirect 시킨다.
-			response.sendRedirect(request.getContextPath()+"/index");
+			response.sendRedirect("/user/signin");
 			return false;
 		}
 	}
