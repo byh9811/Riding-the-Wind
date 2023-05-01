@@ -5,10 +5,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/index.css">
+    <%@ include file="../common/head.jsp" %>
+<%--    <link rel="stylesheet" href="css/index.css">--%>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" />
     <style>
@@ -35,7 +33,7 @@
       <hr>
       <h4>어디로 떠날까요?</h4>
       <hr>
-      <form class="d-flex mt-3" role="search" id='search' method="post">
+      <form class="d-flex mt-3" role="search" id='search' method="get">
       <input type="hidden" name="action" value="trip">
         <select id="search-area" class="form-select" aria-label="Default select example" name="sido">
           <option value="" selected>검색 할 지역 선택</option>
@@ -78,14 +76,15 @@
       <div class="row row-cols-4 justify-content-center" id='trip-list'>
         <c:forEach var="trip" items="${trips}">
           <div class="card col" style="width: 18rem;">
-              <img src="${trip.firstImage}" class="card-img-top" alt="areaImage" onerror=this.src="${root}/asset/img/noimg.jpg">
+              <img src="${trip.firstImage}" class="card-img-top" alt="areaImage" onerror=this.src="img/noimg.jpg">
               <div class="card-body">
                 <h5 class="card-title">${trip.title}</h5>
                 <p class="card-text">${trip.addr1} ${trip.addr2}</p>
                 <a href="#" class="btn btn-primary" onclick="moveCenter(${trip.latitude}, ${trip.longitude});">위치 보기</a>
                 <div style="display: none" class="latitude">${trip.latitude}</div>
                 <div style="display: none" class="longitude">${trip.longitude}</div>
-                <button class="btn btn-secondary" id="trip-add-btn" onclick="location.href='tour?action=addtrip&contentId=${trip.contentId}'">여행지 추가</button>
+                <div style="display: none" class="contentId">${trip.contentId}</div>
+                <button class="btn btn-secondary" id="trip-add-btn">여행지 추가</button>
               </div>
           </div>
         </c:forEach>
@@ -105,6 +104,19 @@
     crossorigin="anonymous"></script>
   <script type="text/javascript"
     src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4de9e07e005325e92dadbc5bcaedf59c&libraries=services,clusterer,drawing"></script>
+  <script>
+    document.querySelector("#trip-add-btn").addEventListener("click", function () {
+      fetch("attraction/myPick", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          contentId: ${contentId}
+        }),
+      });
+    })
+  </script>
   <script>
     var positions; // marker 배열.
     var latClass = document.getElementsByClassName("latitude");
@@ -141,7 +153,7 @@
     }
     
   	document.querySelector("#btn-search").addEventListener("click", function(){
-  		if ("<c:out value='${userinfo}'/>" == ""){
+  		if ("<c:out value='${loginUser}'/>" == ""){
   			alert("로그인이 필요한 서비스입니다.");
   			location.reload();
   		}
@@ -164,7 +176,7 @@
   			localStorage.setItem("goto", JSON.stringify(cast));
   			
   			let form = document.querySelector("#search");
-  			form.setAttribute("action", "${root}/tour");
+  			form.setAttribute("action", "/attraction");
   			form.submit;
   		}
   	})
