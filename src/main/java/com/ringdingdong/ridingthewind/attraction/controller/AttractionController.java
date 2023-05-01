@@ -3,9 +3,9 @@ package com.ringdingdong.ridingthewind.attraction.controller;
 import com.ringdingdong.ridingthewind.attraction.dto.AttractionDto;
 import com.ringdingdong.ridingthewind.attraction.entity.AttractionInfo;
 import com.ringdingdong.ridingthewind.attraction.service.AttractionInfoService;
+import com.ringdingdong.ridingthewind.user.dto.UserSessionDto;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,30 +19,30 @@ import java.util.stream.Collectors;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/attraction")
+@Slf4j
 public class AttractionController {
 
     private final AttractionInfoService attractionInfoService;
-    private final Logger logger = LoggerFactory.getLogger(AttractionController.class);
-
     @GetMapping("/search-page")
     public String moveSearchPage() {
-        return "tours/tour";
+        return "/attraction/attraction_search";
     }
 
     @GetMapping
     public String getAttractionList(@RequestParam Map<String, String> map, Model model) {
-        logger.debug("map:" + map.toString());
+        log.debug("map: {}", map);
 
         List<AttractionInfo> list = attractionInfoService.getAttractionInfoList(map);
         model.addAttribute("trips", list.stream().map(AttractionDto::new).collect(Collectors.toList()));
 
-        return "tours/tour";
+        return "/attraction/attraction_search";
     }
 
     @PostMapping("/myPick")
     public String addMyAttraction(@RequestBody String contentId, HttpSession session) {
         Map<String, String> map = new HashMap<>();
-        map.put("userId", (String) session.getAttribute("loginUser"));
+        UserSessionDto userSessionDto = (UserSessionDto) session.getAttribute("loginUser");
+        map.put("userId", userSessionDto.getUserId());
         map.put("contentId", contentId);
         attractionInfoService.saveMyAttraction(map);
 

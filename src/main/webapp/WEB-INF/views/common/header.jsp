@@ -21,9 +21,9 @@
 			<ul class="nav nav-pills">
 				<li class="nav-item"><a href="${root}/board?action=boardlist" id="boardnotice" name="boardnotice" class="nav-link">공지사항</a></li>
 				<li class="nav-item"><a href="#" class="nav-link">공유게시판</a></li>
-				<li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
-				<li class="nav-item"><a href="${root}/user/mypage" id="mvmypage" name="mvmypage" class="nav-link">마이페이지</a></li>
 				<li class="nav-item"><a href="${root}/user/signout" class="nav-link" id="logout-btn">로그아웃</a></li>
+				<li class="nav-item"><a href="${root}/user/mypage" id="mvmypage" name="mvmypage" class="nav-link">마이페이지</a></li>
+				<li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
 			</ul>
 		</c:if>
 		

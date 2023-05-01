@@ -6,7 +6,6 @@
 <html lang="en">
 <head>
     <%@ include file="../common/head.jsp" %>
-<%--    <link rel="stylesheet" href="css/index.css">--%>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" />
     <style>
@@ -19,7 +18,6 @@
 		.distanceInfo .label {display:inline-block;width:50px;}
 		.distanceInfo:after {content:none;}
 	</style>
-    <title>Enjoy Trip</title>
 </head>
 
 <body>
@@ -106,7 +104,7 @@
     src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4de9e07e005325e92dadbc5bcaedf59c&libraries=services,clusterer,drawing"></script>
   <script>
     document.querySelector("#trip-add-btn").addEventListener("click", function () {
-      fetch("attraction/myPick", {
+      fetch("${root}/attraction/myPick", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -176,7 +174,7 @@
   			localStorage.setItem("goto", JSON.stringify(cast));
   			
   			let form = document.querySelector("#search");
-  			form.setAttribute("action", "/attraction");
+  			form.setAttribute("action", "${root}/attraction");
   			form.submit;
   		}
   	})
