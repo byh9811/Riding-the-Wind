@@ -24,4 +24,9 @@ public class AttractionInfoServiceImpl implements AttractionInfoService {
         return attractionInfoMapper.selectAttractionListByUserId(userId);
     }
 
+    @Override
+    public int saveMyAttraction(Map<String, String> map) {
+        return attractionInfoMapper.insertMyAttraction(map);
+    }
+
 }

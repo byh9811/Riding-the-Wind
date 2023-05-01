@@ -13,4 +13,6 @@ public interface AttractionInfoMapper {
 
     List<AttractionInfo> selectAttractionListByUserId(String userId);
 
+    int insertMyAttraction(Map<String, String> map);
+
 }

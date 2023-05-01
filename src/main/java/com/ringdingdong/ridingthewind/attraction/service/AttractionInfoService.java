@@ -9,4 +9,6 @@ public interface AttractionInfoService {
     List<AttractionInfo> getAttractionInfoList(Map<String, String> map);
 
     List<AttractionInfo> getMyAttractionInfoList(String userId);
+
+    int saveMyAttraction(Map<String, String> map);
 }
