@@ -3,7 +3,6 @@
 
 <c:set var="checked" value="checked"></c:set>
 <c:set var="saveId" value="${cookie.ssafy_id.value}"></c:set>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +12,7 @@
     <div class='container'>
     <!--Header -->
     <%@ include file="../common/header.jsp" %>
+
     <!--End of Header-->
 
 
@@ -24,7 +24,6 @@
                 <span class="input-group-text" id="basic-addon2">@example.com</span>
             </div> -->
             <form id="form-login" method="POST" action="">
-          		<input type="hidden" name="action" value="login">
 	            <div class="input-group mb-4 mt-4">
 	                <input type="text" class="form-control" id="userid" name="userid" placeholder="아이디">
 	                <div class="form-check mb-3 float-end">
@@ -81,7 +80,7 @@
 		          return;
 		        } else {
 		          let form = document.querySelector("#form-login");
-		          form.setAttribute("action", "${root}/user");
+		          form.setAttribute("action", "${root}/user/signin");
 		          form.submit();
 		        }
 	    	});
