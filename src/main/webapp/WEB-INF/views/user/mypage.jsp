@@ -43,7 +43,7 @@
           </div>
           <div class="list-group">
             <a href="/user/info" class="list-group-item list-group-item-action">개인정보</a>
-            <a href="user?action=userDrop&userid=${loginUser}" class="list-group-item list-group-item-action">회원 탈퇴</a>
+            <a href="/user/delete" class="list-group-item list-group-item-action">회원 탈퇴</a>
             <a href="#" class="list-group-item list-group-item-action">핫플게시판</a>
           </div>
          

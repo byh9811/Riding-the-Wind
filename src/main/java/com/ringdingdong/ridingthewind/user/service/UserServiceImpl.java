@@ -1,11 +1,9 @@
 package com.ringdingdong.ridingthewind.user.service;
 
-import com.ringdingdong.ridingthewind.user.controller.UserController;
 import com.ringdingdong.ridingthewind.user.dto.UserDto;
 import com.ringdingdong.ridingthewind.user.entity.User;
 import com.ringdingdong.ridingthewind.user.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,5 +27,9 @@ public class UserServiceImpl implements UserService{
 
     public int updateUser(UserDto userDto) {
         return userMapper.updateUser(userDto);
+    }
+
+    public int deleteUser(String userId) {
+        return userMapper.deleteUser(userId);
     }
 }
