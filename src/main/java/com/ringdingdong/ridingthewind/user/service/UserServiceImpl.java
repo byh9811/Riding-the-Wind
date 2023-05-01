@@ -14,7 +14,7 @@ public class UserServiceImpl implements UserService{
     public final UserMapper userMapper;
 
     public User signinUser(UserDto userDto) {
-
-    return userMapper.signinUser(userDto);
+        System.out.println("아니 아까까진 됐는데");
+        return userMapper.signinUser(userDto);
     }
 }

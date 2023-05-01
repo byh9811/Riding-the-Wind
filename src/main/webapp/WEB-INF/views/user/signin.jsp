@@ -80,6 +80,9 @@
 		          return;
 		        } else {
 		          let form = document.querySelector("#form-login");
+		          let savetf = document.querySelector("#saveid");
+		          if(savetf==null) savetf = "no";
+		          form.setAttribute("saveid", savetf);
 		          form.setAttribute("action", "${root}/user/signin");
 		          form.submit();
 		        }

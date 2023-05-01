@@ -6,7 +6,7 @@
 		<a href="${root}/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
 			<span class="fs-4"><b>Riding The Wind</b></span>
 		</a>
-		<c:if test="${empty userinfo}">
+		<c:if test="${empty loginUser}">
 			<form action="">
 			<ul class="nav nav-pills">
 				<li class="nav-item"><a href="#" id="boardnotice" name="boardnotice" class="nav-link">공지사항</a></li>
@@ -17,13 +17,13 @@
 			</ul>
 		</form>
 		</c:if>
-		<c:if test="${not empty userinfo}">
+		<c:if test="${not empty loginUser}">
 			<ul class="nav nav-pills">
 				<li class="nav-item"><a href="${root}/board?action=boardlist" id="boardnotice" name="boardnotice" class="nav-link">공지사항</a></li>
 				<li class="nav-item"><a href="#" class="nav-link">공유게시판</a></li>
 				<li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
 				<li class="nav-item"><a href="${root}/mypage" id="mvmypage" name="mvmypage" class="nav-link">마이페이지</a></li>
-				<li class="nav-item"><a href="${root}/user/logout" class="nav-link" id="logout-btn">로그아웃</a></li>
+				<li class="nav-item"><a href="${root}/user/signout" class="nav-link" id="logout-btn">로그아웃</a></li>
 			</ul>
 		</c:if>
 		
