@@ -11,7 +11,7 @@ function Haeundae() {
 
 function Jeju() {
   var cast = {
-    "searchArea" : "8", // 부산
+    "searchArea" : "39", // 제주
     "searchContentId" : "12", // 관광지
     "searchKeyword" : "제주" // 키워드
   };
