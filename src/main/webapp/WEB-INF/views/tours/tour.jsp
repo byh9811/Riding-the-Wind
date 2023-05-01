@@ -1,20 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="${root}/asset/css/index.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" />
-  <style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/index.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" />
+    <style>
 		.dot {overflow:hidden;float:left;width:12px;height:12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/mini_circle.png');}    
 		.dotOverlay {position:relative;bottom:10px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;font-size:12px;padding:5px;background:#fff;}
 		.dotOverlay:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}    
@@ -24,13 +21,13 @@
 		.distanceInfo .label {display:inline-block;width:50px;}
 		.distanceInfo:after {content:none;}
 	</style>
-  <title>Enjoy Trip</title>
+    <title>Enjoy Trip</title>
 </head>
 
 <body>
   <div class='container'>
     <!--Header -->
-	<%@ include file="/common/header.jsp" %>
+	<%@ include file="../common/header.jsp" %>
     <!--End of Header-->
 
     <!--Main-->
@@ -49,7 +46,7 @@
           <option value="5">광주</option>
           <option value="6">부산</option>
           <option value="7">울산</option>
-          <option value="8">세종틀별자치시</option>
+          <option value="8">세종특별자치시</option>
           <option value="31">경기도</option>
           <option value="32">강원도</option>
           <option value="33">충청북도</option>
@@ -79,21 +76,20 @@
       
       <!-- View! -->
       <div class="row row-cols-4 justify-content-center" id='trip-list'>
-    <c:forEach var="trip" items="${trips}">
-	  <div class="card col" style="width: 18rem;">
-	      <img src="${trip.firstImage}" class="card-img-top" alt="areaImage" onerror=this.src="${root}/asset/img/noimg.jpg">
-	      <div class="card-body">
-	        <h5 class="card-title">${trip.title}</h5>
-	        <p class="card-text">${trip.addr1} ${trip.addr2}</p>
-	        <a href="#" class="btn btn-primary" onclick="moveCenter(${trip.latitude}, ${trip.longitude});">위치 보기</a>
-	        <div style="display: none" class="latitude">${trip.latitude}</div>
-	        <div style="display: none" class="longitude">${trip.longitude}</div>
-	        <button class="btn btn-secondary" id="trip-add-btn" onclick="location.href='tour?action=addtrip&contentId=${trip.contentId}'">여행지 추가</button>
-	      </div>
-	  </div>
-    </c:forEach>
-    	</div> 
-
+        <c:forEach var="trip" items="${trips}">
+          <div class="card col" style="width: 18rem;">
+              <img src="${trip.firstImage}" class="card-img-top" alt="areaImage" onerror=this.src="${root}/asset/img/noimg.jpg">
+              <div class="card-body">
+                <h5 class="card-title">${trip.title}</h5>
+                <p class="card-text">${trip.addr1} ${trip.addr2}</p>
+                <a href="#" class="btn btn-primary" onclick="moveCenter(${trip.latitude}, ${trip.longitude});">위치 보기</a>
+                <div style="display: none" class="latitude">${trip.latitude}</div>
+                <div style="display: none" class="longitude">${trip.longitude}</div>
+                <button class="btn btn-secondary" id="trip-add-btn" onclick="location.href='tour?action=addtrip&contentId=${trip.contentId}'">여행지 추가</button>
+              </div>
+          </div>
+        </c:forEach>
+      </div>
 
     </div>
     <!--End of Main-->

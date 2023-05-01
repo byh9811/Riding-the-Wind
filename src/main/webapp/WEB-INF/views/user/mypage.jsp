@@ -6,20 +6,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="${root}/asset/css/mypage.css">
-  <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"
-    />
+    <%@ include file="../common/head.jsp" %>
+    <link rel="stylesheet" href="css/mypage.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
     <style>
 		.dot {overflow:hidden;float:left;width:12px;height:12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/mini_circle.png');}    
@@ -30,15 +20,14 @@
 		.distanceInfo {position:relative;top:5px;left:5px;list-style:none;margin:0;}
 		.distanceInfo .label {display:inline-block;width:50px;}
 		.distanceInfo:after {content:none;}
-	</style>
-  <title>Enjoy Trip</title>
+    </style>
+
 </head>
 <body>
   <div class='container text-center'>
     <!--Header -->
 	<%@ include file="../common/header.jsp" %>
     <!--End of Header-->
-    <% String userid = userInfo.getUserId(); %>
     <hr>
     <h4>마이페이지</h4>
     <hr>
@@ -46,11 +35,11 @@
       <div class='row'>
         <div class='col-md-3' id='left-container'>
           <div class="text-center mt-3" id='profile'>
-            <img src="${root}/asset/img/noimg.jpg" class="img-thumbnail" alt="프로필"/>
+            <img src="img/noimg.jpg" class="img-thumbnail" alt="프로필"/>
           </div>
           <div class="list-group">
-            <a href="user?action=mvupdate&userid=<%=userid%>" class="list-group-item list-group-item-action">개인정보 수정</a>
-            <a href="user?action=userDrop&userid=<%=userid%>" class="list-group-item list-group-item-action">회원 탈퇴</a>
+            <a href="user?action=mvupdate&userid=${loginUser}" class="list-group-item list-group-item-action">개인정보 수정</a>
+            <a href="user?action=userDrop&userid=${loginUser}" class="list-group-item list-group-item-action">회원 탈퇴</a>
             <a href="#" class="list-group-item list-group-item-action">핫플게시판</a>
           </div>
          
@@ -104,11 +93,8 @@
     </footer>
     <!--End of Footer-->
   </div>
-	
-<script src="${root}/asset/js/mypage.js"></script>
-  <script type="text/javascript" 
-    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4de9e07e005325e92dadbc5bcaedf59c"
-  ></script>
+  <script src="js/mypage.js"></script>
+  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4de9e07e005325e92dadbc5bcaedf59c"></script>
   <script>
   	var positions; // marker 배열.
   	var latClass = document.getElementsByClassName("latitude");
