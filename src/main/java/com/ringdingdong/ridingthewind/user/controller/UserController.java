@@ -69,6 +69,7 @@ public class UserController {
 
     @GetMapping(value="/signup")
     public String signup(){
+
         return "user/signup";
     }
 
@@ -81,7 +82,10 @@ public class UserController {
             return "redirect:/user/signup";
         }
         if(result==1) {
-            session.setAttribute("loginUser", userDto);
+            UserSessionDto userSessionDto = new UserSessionDto();
+            userSessionDto.setUserId(userDto.getUserId());
+            userSessionDto.setUserName(userDto.getUserName());
+            session.setAttribute("loginUser", userSessionDto);
             return "redirect:/";
         } else{
             return "redirect:/user/signup";
