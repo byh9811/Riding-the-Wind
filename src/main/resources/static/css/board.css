@@ -1,5 +1,3 @@
-
-
 a {
     text-decoration: none !important; 
     color: black !important;
@@ -10,9 +8,8 @@ a {
     display: grid; 
     grid-template-columns: 100px 1fr 100px;
     line-height: 40px;
-    
 }
+
 #board>ul>li>div{
     border: 1px solid black;
-
 }

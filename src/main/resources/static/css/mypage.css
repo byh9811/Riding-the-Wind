@@ -8,7 +8,6 @@ header ul li a{
   background-color: white;
   position: relative;
   border-radius: 10px;
-  
 }
 
 #card-list > .card{
@@ -32,17 +31,17 @@ header ul li a{
 }
 
 #card-list-custom {
-	background-color: rgba(255, 228, 181, 0.3);
-	position: relative;
-	margin: 5px;
-	border: 1px solid rgb(220, 220, 220);
-	border-radius: 5px;
-	width: auto;
-	font-size: small;
+  background-color: rgba(255, 228, 181, 0.3);
+  position: relative;
+  margin: 5px;
+  border: 1px solid rgb(220, 220, 220);
+  border-radius: 5px;
+  width: auto;
+  font-size: small;
 }
 
 #card-list-custom > .btn-primary{
-	font-size: samll;
+  font-size: small;
 }
 
 #search > .form-select {

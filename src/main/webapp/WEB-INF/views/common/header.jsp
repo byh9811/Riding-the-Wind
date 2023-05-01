@@ -1,22 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.ssafy.user.model.UserDto" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
-<%
- UserDto userInfo = (UserDto) session.getAttribute("userinfo");
-if(userInfo != null) {
-%>
-<%-- 
-<%= userInfo.getName() %>
-<%= userInfo.getUserId() %>
- --%>
-<% 
-}
-%>
 
 	<header	class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-		<a href="${root}/index.jsp" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-			<span class="fs-4"><b>ENJOY TRIP</b></span>
+		<a href="${root}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+			<span class="fs-4"><b>Riding The Wind</b></span>
 		</a>
 		<c:if test="${empty userinfo}">
 			<form action="">
