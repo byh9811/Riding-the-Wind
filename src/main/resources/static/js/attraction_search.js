@@ -1,4 +1,101 @@
 
+var positions; // marker 배열.
+var latClass = document.getElementsByClassName("latitude");
+var lngClass = document.getElementsByClassName("longitude");
+var titleClass = document.getElementsByClassName("card-title");
+
+var latList = [];
+var lngList = [];
+var titleList = [];
+
+var contentType = [12, 14, 15, 25, 28, 32, 38, 39];
+var slide_state = document.querySelector("#slide_all");
+
+slide_state.addEventListener("click", () => {
+    if(!slide_state.checked) {
+        for (var i = 0; i < 8; i++) {
+            if(document.getElementById(`checkbox_${contentType[i]}`).checked){
+                document.getElementById(`checkbox_${contentType[i]}`).checked = false;
+            }
+        }
+    } else {
+        for (var i = 0; i < 8; i++) {
+            if(!document.getElementById(`checkbox_${contentType[i]}`).checked){
+                document.getElementById(`checkbox_${contentType[i]}`).checked = true;
+            }
+        }
+    }
+});
+
+// sido 드롭다운을 가져오는 함수
+let areaUrl = "/attraction/sido";
+fetch(areaUrl, { method: "GET" })
+    .then((response) => response.json())
+    .then((data) => makeSidoDropDown(data));
+
+// sido 드롭다운을 적용하는 함수
+function makeSidoDropDown(data) {
+    let sidoList = data.sido;
+    let sidoDropDown = document.getElementById("search-area-sido");
+    sidoList.forEach((sido) => {
+        let opt = document.createElement("option");
+        opt.setAttribute("value", sido.code);
+        opt.appendChild(document.createTextNode(sido.name));
+        sidoDropDown.appendChild(opt);
+    });
+}
+
+positions = [];
+
+// 시/도 선택 시 gugun 드롭다운을 가져오는 함수
+document.querySelector("#search-area-sido").addEventListener("change", () => {
+    let select = document.querySelector("#search-area-sido");
+    let option = select.options[select.selectedIndex];
+    let sidoCode = option.value;
+
+    let areaUrl = `/attraction/gugun?sido=${sidoCode}`;
+
+    fetch(areaUrl, { method: "GET" })
+        .then((response) => response.json())
+        .then((data) => makeGugunDropDown(data));
+
+    function makeGugunDropDown(data) {
+        let gugunList = data.gugun;
+        let gugunDropDown = document.getElementById("search-area-gugun");
+        if (gugunDropDown.childElementCount > 1) {
+            gugunDropDown.replaceChildren();
+        }
+        gugunList.forEach((gugun) => {
+            let opt = document.createElement("option");
+            opt.setAttribute("value", gugun.code);
+            opt.appendChild(document.createTextNode(gugun.name));
+
+            gugunDropDown.appendChild(opt);
+        });
+    }
+});
+
+document.querySelector("#btn-search").addEventListener("click", function(){
+    const checkboxes = document.getElementsByName('contentType');
+    if ("<c:out value='${loginUser}'/>" == "") {
+        alert("로그인이 필요한 서비스입니다.");
+        location.reload();
+    } else if(!document.querySelector("#search-area-sido").value) {
+        alert("시/도를 선택하세요!");
+        location.reload();
+    } else if(!document.querySelector("#search-area-gugun").value) {
+        alert("군/구를 선택하세요!");
+        location.reload();
+    } else if (!checkboxes.includes()) {
+        alert("유형을 선택하세요!");
+        location.reload();
+    } else {
+        let form = document.querySelector("#search");
+        form.setAttribute("action", "/attraction");
+        form.submit();
+    }
+});
+
 // 카카오지도
 var mapContainer = document.getElementById("map"), // 지도를 표시할 div
     mapOption = {
@@ -301,121 +398,3 @@ function getTimeHTML(distance) {
 
     return content;
 }
-
-var positions; // marker 배열.
-var latClass = document.getElementsByClassName("latitude");
-var lngClass = document.getElementsByClassName("longitude");
-var titleClass = document.getElementsByClassName("card-title");
-
-var latList = [];
-var lngList = [];
-var titleList = [];
-
-// sido 드롭다운을 가져오는 함수
-let areaUrl = "/attraction/sido";
-fetch(areaUrl, { method: "GET" })
-    .then((response) => response.json())
-    .then((data) => makeSidoDropDown(data));
-
-// sido 드롭다운을 적용하는 함수
-function makeSidoDropDown(data) {
-    let sidoList = data.sido;
-    let sidoDropDown = document.getElementById("search-area-sido");
-    sidoList.forEach((sido) => {
-        let opt = document.createElement("option");
-        opt.setAttribute("value", sido.code);
-        opt.appendChild(document.createTextNode(sido.name));
-        sidoDropDown.appendChild(opt);
-    });
-}
-
-positions = [];
-// window.onload = function () {
-//     searchJson = JSON.parse(localStorage.getItem("goto"));
-//     if(searchJson != null) {
-//         document.getElementById("search-area-sido").value = searchJson.savedSido;
-//         document.getElementById("search-area-gugun").value = searchJson.savedGugun;
-//         document.getElementById("search-keyword").value = searchJson.savedKeyword;
-//         searchJson.savedContentType.forEach((id) => {
-//             const checkbox = document.getElementById(`checkbox_${id}`); // id에 해당하는 체크박스 가져오기
-//             if (checkbox) { // 체크박스가 존재하는 경우
-//                 checkbox.checked = true; // 체크 상태 변경
-//             }
-//         });
-//
-//         //document.getElementById('btn-search').click();
-//     }
-//
-//     for (var i = 0; i < latClass.length; i++) {
-//         latList[i] = latClass.item(i);
-//         lngList[i] = lngClass.item(i);
-//         titleList[i] = titleClass.item(i);
-//
-//         let markerInfo = {
-//         title: titleList[i].innerHTML,
-//         latlng: new kakao.maps.LatLng(latList[i].innerHTML, lngList[i].innerHTML),
-//         };
-//         positions.push(markerInfo);
-//     }
-//
-//     displayMarker();
-// }
-
-// 시/도 선택 시 gugun 드롭다운을 가져오는 함수
-document.querySelector("#search-area-sido").addEventListener("change", () => {
-    let select = document.querySelector("#search-area-sido");
-    let option = select.options[select.selectedIndex];
-    let sidoCode = option.value;
-
-    let areaUrl = `/attraction/gugun?sido=${sidoCode}`;
-
-    fetch(areaUrl, { method: "GET" })
-        .then((response) => response.json())
-        .then((data) => makeGugunDropDown(data));
-
-    function makeGugunDropDown(data) {
-        let gugunList = data.gugun;
-        let gugunDropDown = document.getElementById("search-area-gugun");
-        if (gugunDropDown.childElementCount > 1) {
-            gugunDropDown.replaceChildren();
-        }
-        gugunList.forEach((gugun) => {
-            let opt = document.createElement("option");
-            opt.setAttribute("value", gugun.code);
-            opt.appendChild(document.createTextNode(gugun.name));
-
-            gugunDropDown.appendChild(opt);
-        });
-    }
-});
-
-document.querySelector("#btn-search").addEventListener("click", function(){
-    const checkboxes = document.getElementsByName('contentType');
-    if ("<c:out value='${loginUser}'/>" == "") {
-        alert("로그인이 필요한 서비스입니다.");
-        location.reload();
-    } else if(!document.querySelector("#search-area-sido").value) {
-        alert("시/도를 선택하세요!");
-        location.reload();
-    } else if(!document.querySelector("#search-area-gugun").value) {
-        alert("군/구를 선택하세요!");
-        location.reload();
-    } else if (!checkboxes.includes()) {
-        alert("유형을 선택하세요!");
-        location.reload();
-    } else {
-        var cast = {
-            "savedSido" : document.getElementById("search-area-sido").value,
-            "savedGugun" : document.getElementById("search-area-gugun").value,
-            "savedKeyword" : document.getElementById("search-keyword").value,
-            "savedContentType" : checkboxes
-        };
-
-        // Json Object를 저장하기
-        localStorage.setItem("goto", JSON.stringify(cast));
-
-        let form = document.querySelector("#search");
-        form.setAttribute("action", "${root}/attraction");
-        form.submit;
-    }
-});

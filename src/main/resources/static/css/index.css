@@ -28,19 +28,19 @@ header ul li a{
   opacity: 0.75;
 }
 
-#search > .form-select {
+#search .form-select {
   margin: 5px;
   background-color: rgb(250, 250, 250);
   height: 3.5em;
 }
 
-#search > input {
+#search input {
   margin: 5px;
   background-color: rgb(250, 250, 250);
   height: 3.5em;
 }
 
-#search > button {
+#search button {
   width: 160px;
   margin: 5px;
 }

@@ -67,7 +67,6 @@ public class AttractionController {
     @GetMapping("/sido")
     public String getSido() {
         JsonArray ja = new JsonArray();
-        log.debug("attractionInfoService : {}", attractionInfoService);
         List<Sido> sidoList = attractionInfoService.getSidoList();
 
         for(Sido sido : sidoList) {
@@ -85,10 +84,8 @@ public class AttractionController {
 
     @ResponseBody
     @GetMapping("/gugun")
-    private String getGugun(@RequestParam("sido") String sido) {
+    public String getGugun(@RequestParam("sido") String sido) {
         JsonArray ja = new JsonArray();
-        log.debug("sido : {}", Integer.parseInt(sido));
-        log.debug("attractionInfoService : {}", attractionInfoService);
         List<Gugun> gugunList = attractionInfoService.getGugunList(Integer.parseInt(sido));
 
         for(Gugun gugun : gugunList) {
