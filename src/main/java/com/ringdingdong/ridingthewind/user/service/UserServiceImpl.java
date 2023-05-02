@@ -35,4 +35,12 @@ public class UserServiceImpl implements UserService{
     public int idcheck(String userId) {
         return userMapper.idcheck(userId);
     }
+
+    public String findPassword(String userId) {
+        return userMapper.findPassword(userId);
+    }
+
+    public int updatePassword(UserDto userDto) {
+        return userMapper.updatePassword(userDto);
+    }
 }

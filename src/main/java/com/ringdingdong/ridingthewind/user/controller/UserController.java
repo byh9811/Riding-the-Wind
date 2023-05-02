@@ -93,6 +93,7 @@ public class UserController {
 
     @GetMapping(value = "/mypage")
     public String mypage(){
+
         return "/user/mypage";
     }
 
@@ -126,7 +127,6 @@ public class UserController {
 
     @PostMapping(value="/update")
     public String update(@RequestParam Map<String, String> map,@ModelAttribute UserDto userDto){
-        System.out.println(userDto.toString());
         int result = userService.updateUser(userDto);
         return "redirect:/user/info";
     }
@@ -146,5 +146,27 @@ public class UserController {
     @GetMapping(value="/idcheck")
     public int idcheck(@RequestParam("userid") String userId){
         return userService.idcheck(userId);
+    }
+
+    @GetMapping(value = "/changepwd")
+    public String changepwd(HttpSession session, Model model){
+        UserSessionDto userSessionDto = (UserSessionDto) session.getAttribute("loginUser");
+        String userpwd = userService.findPassword(userSessionDto.getUserId());
+        model.addAttribute("userpwd", userpwd);
+        System.out.println(userpwd);
+        return "/user/changepwd";
+    }
+
+    @PostMapping(value="/changepwd")
+    public String changepwd(@RequestParam Map<String, String> map, HttpSession session){
+        UserDto userDto = new UserDto();
+        String newpwd = map.get("newpwd");
+        UserSessionDto userSessionDto = (UserSessionDto) session.getAttribute("loginUser");
+
+        userDto.setUserId(userSessionDto.getUserId());
+        userDto.setUserPassword(newpwd);
+        System.out.println(userDto.toString());
+        int result = userService.updatePassword(userDto);
+        return "redirect:/user/mypage";
     }
 }

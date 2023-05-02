@@ -61,7 +61,6 @@
                         <div class='input-group mb-4'>
                             <input type="date" id="birth" name="birth" width="300px">
                         </div>
-
                     </div>
                 </div>
                 <div class='text-center pt-2 pb-1 mt-2 mb-3 bg-warning-subtle rounded-3'>

@@ -15,4 +15,8 @@ public interface UserMapper {
     int deleteUser(String userId);
 
     int idcheck(String userId);
+
+    String findPassword(String userId);
+
+    int updatePassword(UserDto userDto);
 }
