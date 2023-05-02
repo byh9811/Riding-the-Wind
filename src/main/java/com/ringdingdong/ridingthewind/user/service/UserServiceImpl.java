@@ -12,7 +12,6 @@ public class UserServiceImpl implements UserService{
     public final UserMapper userMapper;
 
     public User signinUser(UserDto userDto) {
-        System.out.println("아니 아까까진 됐는데");
         return userMapper.signinUser(userDto);
     }
 
@@ -31,5 +30,9 @@ public class UserServiceImpl implements UserService{
 
     public int deleteUser(String userId) {
         return userMapper.deleteUser(userId);
+    }
+
+    public int idcheck(String userId) {
+        return userMapper.idcheck(userId);
     }
 }

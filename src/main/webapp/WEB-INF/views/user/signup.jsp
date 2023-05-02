@@ -15,15 +15,25 @@
 
 
         <!--Main-->
-        <form id="signupform" method="post" action="${root}/user/signup">
+        <form id="signupform" method="post" >
             <div class='container text-center' style='width: 500px; height: 100%; margin-top: 200px; margin-bottom: 200px;'>
                 <h3>회원가입</h3>
                 <div class="input-group mb-4 mt-4">
                     <input type="text" id="userid" name="userId" class="form-control" placeholder="아이디" required="required">
                 </div>
+                <div>
+                    <span id="msg"></span>
+                </div>
                 
                 <div class="input-group mb-4">
                     <input type="password" id="userpwd" name="userPassword" class="form-control" placeholder="비밀번호"  required="required">
+                </div>
+
+                <div class="input-group mb-4">
+                    <input type="password" id="userpwdch" name="userPasswordch" class="form-control" placeholder="비밀번호확인"  required="required">
+                </div>
+                <div>
+                    <span id="pwdmsg"></span>
                 </div>
 
                 <div class="input-group mb-4">
@@ -47,38 +57,15 @@
                 
                 <div class="mb-4">
                     <div class="d-flex">
-                        <div class='col-md-3' style='display:table-cell;vertical-align:middle;'><h4 style='line-height: 52px;'>생년월일</h4></div>
-                        <div class='col-md-3'>
-                            <span class="ps_box">
-                                <input type="text " id="yy" name="yy" placeholder="년(4자)" class="int rounded-1 form-control"  maxlength="4" required="required">
-                            </span>
+                        <div class='col-md-3'><h4>생년월일</h4></div>
+                        <div class='input-group mb-4'>
+                            <input type="date" id="birth" name="birth" width="300px">
                         </div>
-                        <div class='col-md-3'>
-                            <!-- <span class="ps_box"> -->
-                            <select id="mm" name="mm" class="sel rounded-1 form-control" aria-label="월" style='height: 100%; padding-left: 30px;' required="required">
-                                <option value="">월</option>
-                                <option value="01">1</option>
-                                <option value="02">2</option>
-                                <option value="03">3</option>
-                                <option value="04">4</option>
-                                <option value="05">5</option>
-                                <option value="06">6</option>
-                                <option value="07">7</option>
-                                <option value="08">8</option>
-                                <option value="09">9</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                            </select>
-                            <!-- </span> -->
-                        </div>
-                        <div class='col-md-3'>
-                            <input type="text" id="dd" name="dd" placeholder="일" aria-label="일" class="int rounded-1 form-control" maxlength="2" style='padding-left: 30px;' required="required">
-                        </div>
+
                     </div>
                 </div>
                 <div class='text-center pt-2 pb-1 mt-2 mb-3 bg-warning-subtle rounded-3'>
-                <button type="submit" class="bg-warning-subtle" style="font-size: 1.5em; border-style: none;">
+                <button id="signup-btn" type="submit" class="bg-warning-subtle" style="font-size: 1.5em; border-style: none;">
                 <b>가입하기</b>
                 </button>
                 </div>
@@ -99,6 +86,71 @@
         </footer>
         <!--End of Footer-->
     </div>
+    <script>
+        let idcheck = false;
+        document.querySelector("#userid").addEventListener("keyup", function (){
+            let userid = this.value;
+            let resultDiv = document.querySelector("#msg");
+            if(userid.length < 6) {
+                resultDiv.setAttribute("class", "text-danger");
+                resultDiv.textContent = "아이디가 너무 짧습니다.";
+                idcheck = false;
+            } else if(userid.length > 16){
+                resultDiv.setAttribute("class", "text-danger");
+                resultDiv.textContent = "아이디가 너무 깁니다.";
+                idcheck = false;
+            } else{
+                fetch("/user/idcheck?userid="+userid)
+                    .then(response => response.text())
+                    .then(data =>{
+                        console.log(data);
+                        if(data == 0) {
+                            resultDiv.setAttribute("class", "text-primary");
+                            resultDiv.textContent = userid + "는 사용할 수 있습니다.";
+                            idcheck = true;
+                        } else{
+                            resultDiv.setAttribute("class", "text-danger");
+                            resultDiv.textContent = userid + "는 사용할 수 없슴당";
+                            idcheck = false;
+                        }
+                    });
+            }
+        })
+
+
+
+        let pwdcheck = false;
+        document.querySelector("#userpwdch").addEventListener("keyup", function (){
+            let pwd1 = document.querySelector("#userpwd").value;
+            let pwd2 = document.querySelector("#userpwdch").value;
+            let resultmsg = document.querySelector("#pwdmsg");
+            if(pwd1 == pwd2){
+                resultmsg.setAttribute("class","text-primary");
+                resultmsg.textContent = "비밀번호가 일치합니다.";
+                pwdcheck = true;
+
+            }else{
+                resultmsg.setAttribute("class","text-danger");
+                resultmsg.textContent = "비밀번호가 달라영";
+                pwdcheck = false;
+            }
+        })
+
+        document.querySelector("#signup-btn").addEventListener("click", function (){
+            if(!idcheck){
+                alert("아이디를 확인한 후 다시 입력해주세요");
+                event.preventDefault();
+            }else if(!pwdcheck){
+                alert("비밀번호가 일치하지 않습니다.");
+                event.preventDefault();
+            }else {
+                let form = document.querySelector("#signupform");
+                form.setAttribute("action","/user/signup");
+                form.submit();
+            }
+            return false;
+        })
+    </script>
 
 </body>
 </html>

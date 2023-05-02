@@ -6,7 +6,6 @@ import com.ringdingdong.ridingthewind.user.entity.User;
 import com.ringdingdong.ridingthewind.user.service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +23,6 @@ public class UserController {
 
     @GetMapping(value="/signin")
     public String signin(){
-        System.out.println("페이지 접속");
         return "user/signin";
     }
 
@@ -76,6 +74,7 @@ public class UserController {
     @PostMapping(value="/signup")
     public String signup(@ModelAttribute UserDto userDto, HttpSession session){
         int result = 1;
+        System.out.println(userDto.toString());
         try {
             result = userService.signupUser(userDto);
         } catch (Exception e){
@@ -109,7 +108,6 @@ public class UserController {
 
     @GetMapping(value = "/info")
     public String info(){
-        System.out.println("userinfo 들어왔어요");
         return "redirect:/user/viewinfo";
     }
 
@@ -130,8 +128,6 @@ public class UserController {
     public String update(@RequestParam Map<String, String> map,@ModelAttribute UserDto userDto){
         System.out.println(userDto.toString());
         int result = userService.updateUser(userDto);
-        System.out.println("업데이트 들어온건가");
-        System.out.println(map.get("userid"));
         return "redirect:/user/info";
     }
 
@@ -142,8 +138,13 @@ public class UserController {
         int result = userService.deleteUser(userSessionDto.getUserId());
         if(result == 1){
             session.invalidate();
-
         }
         return "redirect:/";
+    }
+
+    @ResponseBody
+    @GetMapping(value="/idcheck")
+    public int idcheck(@RequestParam("userid") String userId){
+        return userService.idcheck(userId);
     }
 }

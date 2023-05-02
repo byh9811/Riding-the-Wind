@@ -13,4 +13,6 @@ public interface UserMapper {
     int updateUser(UserDto userDto);
 
     int deleteUser(String userId);
+
+    int idcheck(String userId);
 }

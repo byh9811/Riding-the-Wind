@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `riding_the_wind`.`user` (
   `user_password` VARCHAR(100) NOT NULL,
   `email_id` VARCHAR(45) NOT NULL,
   `email_domain` VARCHAR(45) NOT NULL,
-  `birth` TIMESTAMP NOT NULL,
+  `birth` varchar(10) NOT NULL,
   `nickname` VARCHAR(45) NOT NULL,
   `joindate` TIMESTAMP NULL DEFAULT now(),
   `phone` CHAR(13) NOT NULL,
