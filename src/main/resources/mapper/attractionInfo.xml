@@ -19,12 +19,26 @@
         <result column="longitude" property="longitude"/>
     </resultMap>
 
-    <select id="selectAttractionListBySidoAndGugun" parameterType="map" resultMap="attractionInfo">
+    <resultMap type="sido" id="sido">
+        <result column="sido_code" property="code"/>
+        <result column="sido_name" property="name"/>
+    </resultMap>
+
+    <resultMap type="gugun" id="gugun">
+        <result column="gugun_code" property="code"/>
+        <result column="gugun_name" property="name"/>
+    </resultMap>
+
+    <select id="selectAttractionList" parameterType="map" resultMap="attractionInfo">
         select content_id, content_type_id, title, addr1, addr2, zipcode, tel, first_image, sido_code, gugun_code, latitude, longitude
         from attraction_info
         where sido_code = #{sido}
-        and content_type_id = #{contentType}
+        and gugun_code = #{gugun}
         and title like CONCAT('%', #{title}, '%')
+        and content_type_id in
+        <foreach collection="contentTypeList" item="contentType" open="(" close=")" separator=",">
+            #{contentType}
+        </foreach>
     </select>
 
     <select id="selectAttractionListByUserId" parameterType="String" resultMap="attractionInfo">
@@ -38,5 +52,15 @@
         insert (user_id, content_id) into `user`
 		values (#{userId}, #{contentId})
     </insert>
+
+    <select id="selectSidoList" resultMap="sido">
+        select * from sido
+    </select>
+
+    <select id="selectGugunList" parameterType="int" resultMap="gugun">
+        select gugun_code, gugun_name
+        from gugun
+        where sido_code = #{sido}
+    </select>
 
 </mapper>

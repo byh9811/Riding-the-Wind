@@ -1,3 +1,5 @@
+
+
 function Haeundae() {
   var cast = {
     "searchArea" : "6", // 부산
