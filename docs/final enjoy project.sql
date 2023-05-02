@@ -40,9 +40,7 @@ CREATE TABLE IF NOT EXISTS `riding_the_wind`.`user` (
   `phone` CHAR(13) NOT NULL,
   `deleted` INT NOT NULL DEFAULT 0,
   PRIMARY KEY (`user_id`),
-  UNIQUE INDEX `user_name_UNIQUE` (`user_name` ASC) VISIBLE,
   UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC) VISIBLE,
-  UNIQUE INDEX `email_id_UNIQUE` (`email_id` ASC) VISIBLE,
   UNIQUE INDEX `nickname_UNIQUE` (`nickname` ASC) VISIBLE,
   UNIQUE INDEX `phone_UNIQUE` (`phone` ASC) VISIBLE)
 
