@@ -4,8 +4,10 @@ import com.ringdingdong.ridingthewind.user.dto.UserDto;
 import com.ringdingdong.ridingthewind.user.dto.UserSessionDto;
 import com.ringdingdong.ridingthewind.user.entity.User;
 import com.ringdingdong.ridingthewind.user.service.UserServiceImpl;
+import com.ringdingdong.ridingthewind.util.MailSendUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +21,10 @@ import java.util.Map;
 @Slf4j
 @RequestMapping("/user")
 public class UserController {
-    public final UserServiceImpl userService;
+    @Autowired
+    private final UserServiceImpl userService;
+    @Autowired
+    private MailSendUtil mailSendUtil;
 
     @GetMapping(value="/signin")
     public String signin(){
@@ -169,4 +174,12 @@ public class UserController {
         int result = userService.updatePassword(userDto);
         return "redirect:/user/mypage";
     }
+
+    @GetMapping(value = "/emailcheck")
+    public String emailcheck(@RequestParam("email") String email){
+        System.out.println(email);
+        System.out.println("================들어옴");
+        return mailSendUtil.joinEmail(email);
+    }
+
 }

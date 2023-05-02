@@ -49,6 +49,13 @@
                     <span class="input-group-text">@</span>
                     <input type="text" class="form-control" placeholder="domain" id="email_domain" name="emailDomain" required="required">
                 </div>
+                <div class="input-group mb-4">
+                    <input type="text" class="form-control" placeholder="인증번호 입력" id="mail_number" name="mailNumber">
+                    <button id="mail-check-btn">인증번호 전송</button>
+                </div>
+                <div>
+                    <span id="mailmsg"></span>
+                </div>
 
                 <div class="input-group mb-4">
                     <input type="text" id="phone" name="phone" class="form-control" placeholder="휴대폰"  required="required" maxlength=11>
@@ -86,6 +93,19 @@
         <!--End of Footer-->
     </div>
     <script>
+        document.querySelector("#mail-check-btn").addEventListener("click", function (){
+            let email = document.querySelector("#email_id").value + "@" + document.querySelector("#email_domain").value;
+            console.log(email);
+            let checkInput = document.querySelector("#mail_number").value;
+            console.log(checkInput);
+            alert("버튼클릭");
+            fetch("/user/emailcheck?email="+email)
+                .then(response => response.text())
+                .then(data =>{
+                    console.log(data);
+                })
+        })
+
         let idcheck = false;
         document.querySelector("#userid").addEventListener("keyup", function (){
             let userid = this.value;
