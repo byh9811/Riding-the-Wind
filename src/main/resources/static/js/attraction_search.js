@@ -65,7 +65,7 @@ function addMyPick(contentId) {
     localStorage.setItem("goto", JSON.stringify(cast));
 
     let form = document.querySelector("#search");
-    form.setAttribute("action", "${root}/attraction");
+    form.setAttribute("action", "/attraction");
     form.submit;
 }
 })
