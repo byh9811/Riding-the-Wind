@@ -93,7 +93,8 @@
         <!--End of Footer-->
     </div>
     <script>
-        document.querySelector("#mail-check-btn").addEventListener("click", function (){
+        let key = "";
+        document.getElementById("mail-check-btn").addEventListener("click", function (){
             let email = document.querySelector("#email_id").value + "@" + document.querySelector("#email_domain").value;
             console.log(email);
             let checkInput = document.querySelector("#mail_number").value;
@@ -102,9 +103,12 @@
             fetch("/user/emailcheck?email="+email)
                 .then(response => response.text())
                 .then(data =>{
+                    key = data;
                     console.log(data);
                 })
-        })
+        }
+
+        )
 
         let idcheck = false;
         document.querySelector("#userid").addEventListener("keyup", function (){

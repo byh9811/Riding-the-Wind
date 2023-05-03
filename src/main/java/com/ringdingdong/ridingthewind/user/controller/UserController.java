@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -175,10 +177,19 @@ public class UserController {
         return "redirect:/user/mypage";
     }
 
+    @ResponseBody
     @GetMapping(value = "/emailcheck")
-    public String emailcheck(@RequestParam("email") String email){
+    public String emailcheck(@RequestParam("email") String email, HttpSession session){
         System.out.println(email);
         System.out.println("================들어옴");
+
+        String key = mailSendUtil.joinEmail(email);
+        List<String> keyList = (List<String>) session.getAttribute("keyList");
+        if (keyList == null) {
+            keyList = new ArrayList<>();
+        }
+        keyList.add(key);
+        session.setAttribute("keyList", keyList);
         return mailSendUtil.joinEmail(email);
     }
 
