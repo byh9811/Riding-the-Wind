@@ -43,7 +43,7 @@ public class AttractionController {
         map.put("sido", attractionSearchRequestDto.getSido());
         map.put("gugun", attractionSearchRequestDto.getGugun());
         map.put("title", attractionSearchRequestDto.getTitle());
-        map.put("contentTypeList", attractionSearchRequestDto.getContentTypeList());
+        map.put("contentTypeList", attractionSearchRequestDto.getContentType());
 
         List<AttractionInfo> list = attractionInfoService.getAttractionInfoList(map);
         model.addAttribute("trips", list.stream().map(AttractionDto::new).collect(Collectors.toList()));

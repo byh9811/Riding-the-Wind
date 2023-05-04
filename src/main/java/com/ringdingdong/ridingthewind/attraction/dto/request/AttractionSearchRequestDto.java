@@ -15,7 +15,7 @@ public class AttractionSearchRequestDto {
 
     private int sido;
     private int gugun;
-    private List<Integer> contentTypeList;
+    private List<Integer> contentType;
     private String title;
 
 }

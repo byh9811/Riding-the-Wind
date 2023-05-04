@@ -9,6 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="css/tiny-slider.css" />
+  <link rel="stylesheet" href="css/nouislider.css" />
     <style>
 		.dot {overflow:hidden;float:left;width:12px;height:12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/mini_circle.png');}    
 		.dotOverlay {position:relative;bottom:10px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;font-size:12px;padding:5px;background:#fff;}
@@ -32,7 +33,7 @@
       <hr>
       <h4>어디로 떠날까요?</h4>
       <hr>
-      <form role="search" method="get">
+      <form role="search" id='searchForm' method="get">
         <div id='search' class="d-flex mt-3">
           <select id="search-area-sido" class="form-select" aria-label="Default select example" name="sido">
             <option value="" selected>시/도 선택</option>
@@ -41,7 +42,7 @@
             <option value="" selected>구/군 선택</option>
           </select>
           <input id="search-keyword" class="form-control me-2" type="search" placeholder="검색어" aria-label="검색어" name="title" />
-          <button id="btn-search" class="btn btn-outline-success" type="submit">검색</button>
+          <button id="btn-search" class="btn btn-outline-success" type="button">검색</button>
         </div>
         <div class="d-flex mt-3">
           <div class="col justify-content-center">
@@ -119,6 +120,8 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
   <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4de9e07e005325e92dadbc5bcaedf59c&libraries=services,clusterer,drawing"></script>
   <script src="${root}/js/attraction_search.js"></script>
+  <script src="${root}/js/attraction_search_function.js"></script>
   <script src="${root}/js/tiny-slider.js"></script>
+  <script src="${root}/js/nouislider.js"></script>
 </body>
 </html>

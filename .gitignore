@@ -12,4 +12,5 @@ target/
 *.ipr
 
 ### Application Setting ###
-application.yml
+*.yml
+*.properties

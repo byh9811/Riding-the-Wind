@@ -75,27 +75,6 @@ document.querySelector("#search-area-sido").addEventListener("change", () => {
     }
 });
 
-document.querySelector("#btn-search").addEventListener("click", function(){
-    const checkboxes = document.getElementsByName('contentType');
-    if ("<c:out value='${loginUser}'/>" == "") {
-        alert("로그인이 필요한 서비스입니다.");
-        location.reload();
-    } else if(!document.querySelector("#search-area-sido").value) {
-        alert("시/도를 선택하세요!");
-        location.reload();
-    } else if(!document.querySelector("#search-area-gugun").value) {
-        alert("군/구를 선택하세요!");
-        location.reload();
-    } else if (!checkboxes.includes()) {
-        alert("유형을 선택하세요!");
-        location.reload();
-    } else {
-        let form = document.querySelector("#search");
-        form.setAttribute("action", "/attraction");
-        form.submit();
-    }
-});
-
 // 카카오지도
 var mapContainer = document.getElementById("map"), // 지도를 표시할 div
     mapOption = {
