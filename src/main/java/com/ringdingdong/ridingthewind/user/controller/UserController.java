@@ -182,15 +182,9 @@ public class UserController {
     public String emailcheck(@RequestParam("email") String email, HttpSession session){
         System.out.println(email);
         System.out.println("================들어옴");
-
-        String key = mailSendUtil.joinEmail(email);
-        List<String> keyList = (List<String>) session.getAttribute("keyList");
-        if (keyList == null) {
-            keyList = new ArrayList<>();
-        }
-        keyList.add(key);
-        session.setAttribute("keyList", keyList);
-        return mailSendUtil.joinEmail(email);
+        String mailcode = mailSendUtil.joinEmail(email);
+        session.setAttribute("mailCode", mailcode);
+        return mailcode;
     }
 
 }

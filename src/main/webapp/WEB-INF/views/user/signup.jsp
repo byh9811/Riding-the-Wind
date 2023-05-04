@@ -51,7 +51,11 @@
                 </div>
                 <div class="input-group mb-4">
                     <input type="text" class="form-control" placeholder="인증번호 입력" id="mail_number" name="mailNumber">
-                    <button id="mail-check-btn">인증번호 전송</button>
+                    <button id="mail-check-btn">확인</button>
+                    <button id="mail-submit-btn">인증번호 전송</button>
+                    <c:if test="${not empty mailCode}">
+                        ${mailCode};
+                    </c:if>
                 </div>
                 <div>
                     <span id="mailmsg"></span>
@@ -61,7 +65,7 @@
                     <input type="text" id="phone" name="phone" class="form-control" placeholder="휴대폰"  required="required" maxlength=11>
                 </div>
 
-                
+
                 <div class="mb-4">
                     <div class="d-flex">
                         <div class='col-md-3'><h4>생년월일</h4></div>
@@ -75,9 +79,9 @@
                 <b>가입하기</b>
                 </button>
                 </div>
-                
-    
-                
+
+
+
                 <!-- <div class="input-group">
                     <span class="input-group-text">With textarea</span>
                     <textarea class="form-control" aria-label="With textarea"></textarea>
@@ -93,8 +97,11 @@
         <!--End of Footer-->
     </div>
     <script>
-        let key = "";
-        document.getElementById("mail-check-btn").addEventListener("click", function (){
+        document.querySelector("#mail-check-btn").addEventListener("click", function(){
+            alert("누름");
+        })
+
+        document.getElementById("mail-submit-btn").addEventListener("click", function (){
             let email = document.querySelector("#email_id").value + "@" + document.querySelector("#email_domain").value;
             console.log(email);
             let checkInput = document.querySelector("#mail_number").value;
@@ -103,10 +110,9 @@
             fetch("/user/emailcheck?email="+email)
                 .then(response => response.text())
                 .then(data =>{
-                    key = data;
                     console.log(data);
                 })
-        }
+        })
 
         )
 
