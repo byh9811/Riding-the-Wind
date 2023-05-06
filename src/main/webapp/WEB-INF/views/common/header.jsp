@@ -25,11 +25,12 @@
 				<li class="nav-item"><a href="${root}/user/mypage" id="mvmypage" name="mvmypage" class="nav-link">마이페이지</a></li>
 				<li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
 			</ul>
+
+			<script>
+				document.querySelector("#logout-btn").addEventListener("click", function() {
+					alert("로그아웃 완료");
+				})
+			</script>
 		</c:if>
 		
 	</header>
-	<script>
-		document.querySelector("#logout-btn").addEventListener("click", function() {
-			alert("로그아웃 완료");
-		})
-	</script>

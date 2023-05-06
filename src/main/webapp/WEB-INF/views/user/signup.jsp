@@ -51,11 +51,8 @@
                 </div>
                 <div class="input-group mb-4">
                     <input type="text" class="form-control" placeholder="인증번호 입력" id="mail_number" name="mailNumber">
-                    <button id="mail-check-btn">확인</button>
+                    <input type="button" id="mail-check-btn">확인</input>
                     <button id="mail-submit-btn">인증번호 전송</button>
-                    <c:if test="${not empty mailCode}">
-                        ${mailCode};
-                    </c:if>
                 </div>
                 <div>
                     <span id="mailmsg"></span>
@@ -97,7 +94,26 @@
         <!--End of Footer-->
     </div>
     <script>
+
+
+        let mailcheck = false;
         document.querySelector("#mail-check-btn").addEventListener("click", function(){
+            let mailCode = sessionStorage.getItem("mailCode");
+            let resultmsg = document.querySelector("#mailmsg");
+            if(document.querySelector("#mail_number").value == mailCode){
+                mailcheck = true;
+                resultmsg.setAttribute("class", "text-primary");
+                resultmsg.textContent="인증번호 확인이 완료되었습니다.";
+            }else{
+                mailcheck= false;
+                resultmsg.setAttribute("class", "text-danger");
+                resultmsg.textContent="인증번호를 다시 확인해주세요.";
+            }
+            console.log(mailCode);
+            console.log("mailcheck"+mailcheck);
+            console.log("idcheck"+idcheck);
+            console.log("pwdcheck"+pwdcheck);
+
             alert("누름");
         })
 
@@ -111,10 +127,9 @@
                 .then(response => response.text())
                 .then(data =>{
                     console.log(data);
+                    sessionStorage.setItem("mailCode", data);
                 })
         })
-
-        )
 
         let idcheck = false;
         document.querySelector("#userid").addEventListener("keyup", function (){
@@ -172,7 +187,11 @@
             }else if(!pwdcheck){
                 alert("비밀번호가 일치하지 않습니다.");
                 event.preventDefault();
+            }else if(!mailcheck){
+                alert("이메일인증을 확인해주세요");
+                event.preventDefault();
             }else {
+                alert("회원가입에 성공하였습니다.");
                 let form = document.querySelector("#signupform");
                 form.setAttribute("action","/user/signup");
                 form.submit();

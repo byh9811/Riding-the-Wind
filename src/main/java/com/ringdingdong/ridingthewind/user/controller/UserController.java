@@ -184,6 +184,7 @@ public class UserController {
         System.out.println("================들어옴");
         String mailcode = mailSendUtil.joinEmail(email);
         session.setAttribute("mailCode", mailcode);
+        System.out.println(session.getAttribute("mailCode"));
         return mailcode;
     }
 
